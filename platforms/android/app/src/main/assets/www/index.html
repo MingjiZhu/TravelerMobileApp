@@ -1,0 +1,366 @@
+<!--Final Project-->
+<!--Professor: Sabbir Ahmed-->
+<!--Student: Mingji Zhu-->
+<!--Revision History:-->
+<!--Created Date: 2019-04-09-->
+<!--Update Date: 2019-04-11-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Travelers</title>
+        <!--jQuery-->
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <!--jQuery mobile-->
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <!--jQuery Validation-->
+        <script src="js/lib/jquery.validate.js"></script>
+        <!--jQuery mobile css-->
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+
+        <!--my scripts-->
+        <script src="js/database.js"></script>
+        <script src="js/tripDAL.js"></script>
+        <script src="js/global.js"></script>
+        <script src="js/Facade.js"></script>
+        <script src="js/util.js"></script>
+
+        <!--my stylesheet-->
+        <link rel="stylesheet" type="text/css" href="css/MZmystyle.css">
+
+        <script type="text/javascript" src="cordova.js"></script>
+    </head>
+
+    <body>
+
+        <!--home page-->
+        <div id="MZHomePage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>Travelers</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a></li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <p align="center">
+                    <img src="img/MZ-icon.jpg" alt="MZicon" height="100%" width="100%"/>
+                </p>
+                <p><b>Share yours & meet others!</b></p>
+
+                <a href="#MZPlanViewPage" type="button" data-role="button" id="MZbtnUpcoming"
+                   name="MZbtnUpcoming" data-icon="arrow-r" data-iconpos="right" class="ui-btn-active"
+                   style="background-color: #0088bb" data-theme="b">
+                    Upcoming Plans</a>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Add Trip page-->
+        <div id="MZAddTripPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>Add a Trip</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a></li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form id="MZAddForm">
+                    <label for="AddSpotName">Spot Name:</label>
+                    <input type="text" id="AddSpotName" name="AddSpotName">
+                    <label for="AddCountry">Country:</label>
+                    <input type="text" id="AddCountry" name="AddCountry">
+                    <label for="AddComments">Comments:</label>
+                    <textarea id="AddComments" name="AddComments"></textarea>
+                    <label for="AddTripDate">Visited Date:</label>
+                    <input id="AddTripDate" name="AddTripDate" type="date" data-clear-btn="true">
+                    <label for="AddStarRate">Rate:</label>
+                    <select name="AddStarRate" id="AddStarRate" data-native-menu="false">
+                    </select>
+                    <img id="imgSnap" name="imgSnap" src="" width="100%" height="100%" alt="Photo loads here">
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <button type="button" id="btnCapturePhoto" name="btnCapturePhoto" data-theme="b"
+                                data-icon="camera">Capture</button>
+                        <button type="button" id="btnLoadFromLibrary" name="btnLoadFromLibrary" data-theme="b"
+                                data-icon="action">Load from library</button>
+                    </div>
+                    <button type="button" data-role="button" id="MZbtnSave" name="MZbtnSave"
+                            class="ui-btn-active" style="width:100px;">
+                        Save
+                    </button>
+
+                </form>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Trip view page-->
+        <div id="MZViewTripPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>List of Trips</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Trips</a>
+                        </li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+
+                <ul id="MZTripList" data-role="listview" data-inset="true" data-icon="false">
+                    <li>
+                        <a href="#MZEditTripPage">
+                        </a>
+                    </li>
+                </ul>
+
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Setting page-->
+        <div id="MZSettingsPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>Settings</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a></li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist"
+                               data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form id="MZdefaultForm" name="MZdefaultForm">
+                    <p>Professor: Sabbir Ahmed</p>
+                    <p>Developer: Mingji Zhu</p>
+                    <p>Email: mzhu9815@conestogac.on.ca</p>
+                    <button type="button" data-role="button" id="MZbtnClearData" name="MZbtnClearData"
+                            data-theme="b">
+                        Clear Database
+                    </button>
+
+                </form>
+
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Modify Trip page-->
+        <div id="MZEditTripPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>Modify Trip</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Trips</a>
+                        </li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form id="MZEditForm" name="MZEditForm">
+                    <label for="EditSpotName">Spot Name:</label>
+                    <input type="text" id="EditSpotName" name="EditSpotName">
+                    <label for="EditCountry">Country:</label>
+                    <input type="text" id="EditCountry" name="EditCountry">
+                    <label for="EditComments">Comments:</label>
+                    <textarea id="EditComments" name="EditComments"></textarea>
+                    <label for="EditTripDate">Visited Date:</label>
+                    <input id="EditTripDate" name="EditTripDate" type="date" data-clear-btn="true">
+                    <label for="EditStarRate">Rate:</label>
+                    <select name="EditStarRate" id="EditStarRate" data-native-menu="false">
+                    </select>
+                    <img id="imgSnapEdit" name="imgSnap" src="" width="100%" height="100%" alt="Photo loads here">
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <button type="button" id="btnCapturePhotoEdit" name="btnCapturePhotoEdit" data-theme="b"
+                        data-icon="camera">Capture </button>
+                        <button type="button" id="btnLoadFromLibraryEdit" name="btnLoadFromLibraryEdit" data-theme="b"
+                        data-icon="action">Load from library</button>
+                    </div>
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <button type="button" data-role="button" id="MZbtnCancel" name="MZbtnCancel"
+                                style="background-color: pink;" data-theme="a">
+                            <a href="#MZViewTripPage" style=" text-decoration: none;">Cancel</a>
+                        </button>
+                        <button type="button" data-role="button" id="MZbtnDelete" name="MZbtnDelete"
+                                data-theme="b">
+                            Delete
+                        </button>
+                        <button type="button" data-role="button" id="MZbtnUpdate" name="MZbtnUpdate"
+                                class="ui-btn-active" >
+                            Update
+                        </button>
+                    </div>
+
+
+
+                </form>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Plan view page-->
+        <div id="MZPlanViewPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>List of Plans</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a>
+                        </li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+
+                <ul id="MZPlanList" data-role="listview" data-inset="true" data-icon="false">
+                    <li>
+                        <a href="#MZPlanEditPage">
+                        </a>
+                    </li>
+                </ul>
+                <a href="#MZPlanAddPage" type="button" data-role="button" id="MZbtnAddPlan"
+                   name="MZbtnAddPlan" class="ui-btn-active" style="background-color: #0088bb" data-theme="b">
+                    Add Plan</a>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Plan add page-->
+        <div id="MZPlanAddPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>List of Trips</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a>
+                        </li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form id="MZAddPlanForm">
+                    <label for="AddPlanName">Destination:</label>
+                    <input type="text" id="AddPlanName" name="AddPlanName">
+                    <label for="AddTransportation">Transportation Information:</label>
+                    <input type="text" id="AddTransportation" name="AddTransportation">
+                    <label for="AddHotel">Hotel Information:</label>
+                    <input type="text" id="AddHotel" name="AddHotel">
+                    <label for="AddDepartureDate">Departure Date:</label>
+                    <input id="AddDepartureDate" name="AddDepartureDate" type="date" data-clear-btn="true">
+
+                    <button type="button" data-role="button" id="MZbtnSavePlan" name="MZbtnSavePlan"
+                            class="ui-btn-active" >
+                        Save Plan
+                    </button>
+
+                </form>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+
+        <!--Plan Edit page-->
+        <div id="MZPlanEditPage" data-role="page">
+            <header data-role="header" data-position="fixed" data-theme="b">
+                <h1>Edit Plan</h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#MZHomePage" data-icon="home" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Home</a></li>
+                        <li><a href="#MZAddTripPage" data-icon="plus" data-theme="a">Add Trip</a></li>
+                        <li><a href="#MZViewTripPage" data-icon="grid" data-theme="a">Trips</a>
+                        </li>
+                        <li><a href="#MZSettingsPage" data-icon="gear" data-theme="a">About</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form id="MZEditPlanForm" name="MZEditPlanForm">
+                    <label for="EditPlanName">Destination:</label>
+                    <input type="text" id="EditPlanName" name="EditPlanName">
+                    <label for="EditTransportation">Transportation Information:</label>
+                    <input type="text" id="EditTransportation" name="EditTransportation">
+                    <label for="EditHotel">Hotel Information:</label>
+                    <input type="text" id="EditHotel" name="EditHotel">
+                    <label for="EditDepartureDate">Departure Date:</label>
+                    <input id="EditDepartureDate" name="EditDepartureDate" type="date" data-clear-btn="true">
+
+                    <div data-role="controlgroup" data-type="vertical">
+
+                            <button type="button" data-role="button" id="MZbtnCancelEditPlan" name="MZbtnCancelEditPlan"
+                                    style="background-color: pink; width:150px; margin-bottom: 5px" data-theme="a">
+                                <a href="#MZPlanViewPage" style=" text-decoration: none;">Cancel Edit</a>
+                            </button>
+
+                        <button type="button" data-role="button" id="MZbtnDeletePlan" name="MZbtnDeletePlan"
+                                data-theme="b" style="width:150px; margin-bottom: 5px">Delete Plan</button>
+                        <button type="button" data-role="button" id="MZbtnUpdatePlan" name="MZbtnUpdatePlan"
+                                class="ui-btn-active" style="width:150px;">Update Plan</button>
+                    </div>
+                </form>
+            </section>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h3>&copy; 2019 Mingji Zhu</h3>
+            </footer>
+        </div>
+    </body>
+</html>
